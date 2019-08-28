@@ -6,9 +6,29 @@ if($_POST){
 	//Incluindo os scripts
 	include('./req/DB.php');
 	include('./req/Espectador.php');
+	include('./req/Usuario.php');
+	include('./req/Administrador.php');
 
-	//Criando o espectador
-	$u = new Espectador();
+	switch ($_POST['nivel']) {
+
+		case 3:
+			//Criando o espectador
+			$u = new Espectador();
+			break;
+
+		case 2:
+			//Criando o usuário
+			$u = new Usuario();
+			break;
+		
+		case 1:
+			//Criando o administrador
+			$u = new Administrador();
+			break;
+		default:
+			die('Nível inexistente...');
+			break;
+	}
 
 	//Será que o login está certo?
 	if($u->logar($_POST['email'],$_POST['senha'])){
