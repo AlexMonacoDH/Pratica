@@ -54,7 +54,7 @@ class Espectador {
 		$db = new DB();
 
 		//Construir a string da consulta
-		$sql = "SELECT m.id, u.email, m.texto, m.hora FROM mensagens m INNER JOIN usuarios u ON u.id = m.id_usuario";
+		$sql = "SELECT m.id, u.email, m.texto, m.hora FROM mensagens m INNER JOIN usuarios u ON u.id = m.id_usuario ORDER BY m.hora";
 
 		//Preparar a consulta
 		$select = $db->prepare($sql);
@@ -70,6 +70,38 @@ class Espectador {
 	}
 	public function getEmail(){
 		return $this->email;
+	}
+	public function listarUsuarios(){
+		//Conectar ao banco de dados
+		$db = new DB();
+		//Construindo a string de consulta
+		$sql = "SELECT id,email,nivel,bloqueado FROM usuarios";
+		//Preparar a consulta
+		$select = $db->prepare($sql);
+		//Executar a consulta
+		$select->execute();
+		//Ler resultado da consulta
+		$usuarios = $select->fetchAll(PDO::FETCH_ASSOC);
+		//Retornando os usuários lidos na BD
+		return $usuarios;
+	}
+	public function estaBloqueado(){
+		//Criando conexão com o DB
+		$db = new DB();
+		//Cirando string de consulta
+		$sql = "SELECT bloqueado FROM usuarios WHERE id=:id";
+		//Preparar a consulta
+		$select = $db->prepare($sql);
+		//Executando a consulta
+		$select->execute(
+			[
+				':id' => $this->id
+			]
+			);
+			//Lendo o resultado da consulta
+			$result = $select->fetch(PDO::FETCH_ASSOC);
+			//Retornando o resultado da função
+			return $result['bloqueado'] == 1;
 	}
 
 }

@@ -1,7 +1,7 @@
 <?php
 
-include('Espectador.php');
-include('DB.php');
+//include('Espectador.php');
+//include('DB.php');
 
 class Usuario extends Espectador{
     
@@ -31,8 +31,8 @@ class Usuario extends Espectador{
 	}
 }
 
-$u = new Usuario();
-$u->logar('usuario@teste.com','teste');
-$u->enviarMensagem('Hello, testing!');
+//$u = new Usuario();
+//$u->logar('usuario@teste.com','teste');
+//$u->enviarMensagem('Hello, testing!');
 
 ?>

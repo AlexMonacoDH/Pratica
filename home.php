@@ -4,10 +4,7 @@
 	session_start();
 
 	//Verificando se a session 'usuário' está configurada
-	if($_SESSION['usuario']){
-		
-	}
-	else{
+	if(!$_SESSION['usuario']){
 		header('location: login.php');
 	}
 
